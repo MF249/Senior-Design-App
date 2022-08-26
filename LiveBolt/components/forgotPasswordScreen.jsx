@@ -1,20 +1,16 @@
 import React from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet, Pressable } from 'react-native';
 
-function RegisterScreen() {
+function ForgotPasswordScreen() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.firstView}>
-          <TextInput
-            style={styles.inputField}
-            defaultValue="   First Name"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.inputField}
-            defaultValue="   Last Name"
-          />
+        <View>
+            <Text style={styles.explainationText}>
+                If you have forgotten your password, you can enter{"\n"}
+                the email linked with your account below.{"\n"}{"\n"}
+                An email will be sent to that address containing a 
+                verification number to change your password.
+            </Text>
         </View>
         <View style={styles.inputView}>
           <TextInput
@@ -22,18 +18,13 @@ function RegisterScreen() {
             defaultValue="   Email Address"
           />
         </View>
-        <View style={styles.lastView}>
-          <TextInput
-            style={styles.inputField}
-            defaultValue="   Phone Number"
-          />
-        </View>
-        <Pressable style={styles.continueButton}>
-          <Text style={{color: 'white'}}>Continue</Text>
+        <Pressable style={styles.confirmButton}>
+          <Text style={{color: 'white'}}>Send</Text>
         </Pressable>
       </ScrollView>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
@@ -41,8 +32,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#D7D7D7',
     },
+    explainationText: {
+        fontSize: 15,
+        paddingTop: 150,
+        paddingBottom: 10,
+        color: '#041847',
+    },
     inputView: {
         paddingVertical: 10,
+        paddingBottom: 20,
     },
     inputField: {
         height: 40,
@@ -51,15 +49,7 @@ const styles = StyleSheet.create({
         color: 'gray',
         borderRadius: 15,
     },
-    firstView: {
-        paddingVertical: 10,
-        paddingTop: 100,
-    },
-    lastView: {
-        paddingVertical: 10,
-        paddingBottom: 100,
-    },
-    continueButton: {
+    confirmButton: {
         backgroundColor: '#041847',
         borderRadius: 10,
         height: 40,
@@ -69,4 +59,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegisterScreen;
+export default ForgotPasswordScreen;
