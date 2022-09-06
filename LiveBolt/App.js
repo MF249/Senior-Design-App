@@ -5,6 +5,10 @@ import LoginScreen from './components/loginScreen';
 import RegisterScreen from './components/registerScreen';
 import HomeScreen from './components/homeScreen';
 import ForgotPasswordScreen from './components/forgotPasswordScreen';
+import ProfileScreen from './components/profileScreen';
+import SettingsScreen from './components/settingsScreen';
+import ActivityScreen from './components/activityScreen';
+import LocationScreen from './components/locationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +43,54 @@ const App = () => {
         <Stack.Screen
           name="Password Reset" 
           component={ForgotPasswordScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#144C81',
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#FFF',
+          }}
+        />
+
+        <Stack.Screen
+          name="Profile" 
+          component={ProfileScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#144C81',
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#FFF',
+          }}
+        />
+
+        <Stack.Screen
+          name="Activity" 
+          component={ActivityScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#144C81',
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#FFF',
+          }}
+        />
+
+        <Stack.Screen
+          name="Location" 
+          component={LocationScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#144C81',
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#FFF',
+          }}
+        />
+
+        <Stack.Screen
+          name="Settings" 
+          component={SettingsScreen} 
           options={{
             headerStyle: {
               backgroundColor: '#144C81',

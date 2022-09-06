@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 
-function HomeScreen({navigation}) {
+function LocationScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text>Logged in as...</Text>
@@ -9,7 +9,6 @@ function HomeScreen({navigation}) {
                 <Text style={{color: 'white'}}>Log Out</Text>
             </Pressable>
         </ScrollView>
-
     );
 };
 
@@ -29,4 +28,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HomeScreen;
+export default LocationScreen;
