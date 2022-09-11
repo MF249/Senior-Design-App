@@ -1,5 +1,13 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Pressable } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import ActivityScreen from './activityScreen';
+import SettingsScreen from './settingsScreen';
+import TabNavigation from './tabNavigation';
+
+//const Tab = createBottomTabNavigator();
 
 function HomeScreen({navigation}) {
     return (
@@ -8,8 +16,9 @@ function HomeScreen({navigation}) {
             <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
                 <Text style={{color: 'white'}}>Log Out</Text>
             </Pressable>
-        </ScrollView>
 
+            <TabNavigation/>
+        </ScrollView>
     );
 };
 
