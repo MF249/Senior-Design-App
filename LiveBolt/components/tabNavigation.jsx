@@ -7,12 +7,14 @@ import ActivityScreen from './activityScreen';
 import SettingsScreen from './settingsScreen';
 import HomeScreen from './homeScreen';
 import ProfileScreen from './profileScreen';
+import LocationScreen from './locationScreen';
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigation() {
     return (
-            <Tab.Navigator
+            <Tab.Navigator 
+            contentContainerStyle={styles.container}
                 screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -32,16 +34,19 @@ function TabNavigation() {
                 tabBarInactiveTintColor: 'gray',
                 })}
             >
-                <Tab.Screen name="Settings" component={SettingsScreen} />
-                <Tab.Screen name="Profile" component={ProfileScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="Settings" component={SettingsScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="Profile" component={ProfileScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="Activity" component={ActivityScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="Location" component={LocationScreen} />
             </Tab.Navigator>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
-        alignItems: 'center',
+        flexGrow: 2,
+        alignContent: 'center',
         backgroundColor: '#D7D7D7',
     },
     logoutButton: {

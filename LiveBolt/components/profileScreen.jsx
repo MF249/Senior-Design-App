@@ -4,10 +4,7 @@ import { Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 function ProfileScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text>Logged in as...</Text>
-            <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
-                <Text style={{color: 'white'}}>Log Out</Text>
-            </Pressable>
+            
         </ScrollView>
     );
 };

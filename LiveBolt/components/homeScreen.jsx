@@ -12,9 +12,9 @@ import TabNavigation from './tabNavigation';
 function HomeScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text>Logged in as...</Text>
+            <Text style={{alignSelf: 'center'}}>Logged in as...</Text>
             <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
-                <Text style={{color: 'white'}}>Log Out</Text>
+                <Text style={{color: 'white', alignSelf: 'center'}}>Log Out</Text>
             </Pressable>
 
             <TabNavigation/>
@@ -24,8 +24,7 @@ function HomeScreen({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
-        alignItems: 'center',
+        flex: 1,
         backgroundColor: '#D7D7D7',
     },
     logoutButton: {
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
         height: 40,
         width: 100,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'center',
     },
 });
 
