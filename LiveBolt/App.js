@@ -11,6 +11,8 @@ import ActivityScreen from './components/activityScreen';
 import LocationScreen from './components/locationScreen';
 import TabNavigation from './components/tabNavigation';
 
+process.env.REACT_APP_DEV_MODE = process.env.REACT_APP_PRO_MODE
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {

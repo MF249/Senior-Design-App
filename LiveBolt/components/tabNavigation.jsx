@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActivityScreen from './activityScreen';
 import SettingsScreen from './settingsScreen';
-import HomeScreen from './homeScreen';
+import HomeScreenTab from './homeScreen';
 import ProfileScreen from './profileScreen';
 import LocationScreen from './locationScreen';
 
@@ -36,7 +36,7 @@ function TabNavigation() {
             >
                 <Tab.Screen ontentContainerStyle={styles.container} name="Settings" component={SettingsScreen} />
                 <Tab.Screen ontentContainerStyle={styles.container} name="Profile" component={ProfileScreen} />
-                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreenTab} options={{unmountOnBlur: true}}/>
                 <Tab.Screen ontentContainerStyle={styles.container} name="Activity" component={ActivityScreen} />
                 <Tab.Screen ontentContainerStyle={styles.container} name="Location" component={LocationScreen} />
             </Tab.Navigator>
