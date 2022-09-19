@@ -7,8 +7,6 @@ import ActivityScreen from './activityScreen';
 import SettingsScreen from './settingsScreen';
 import TabNavigation from './tabNavigation';
 
-//const Tab = createBottomTabNavigator();
-
 function HomeScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -16,6 +14,7 @@ function HomeScreen({navigation}) {
             <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
                 <Text style={{color: 'white', alignSelf: 'center'}}>Log Out</Text>
             </Pressable>
+            <button>Settings</button>
 
             <TabNavigation/>
         </ScrollView>

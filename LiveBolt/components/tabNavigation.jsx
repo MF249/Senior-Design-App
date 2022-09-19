@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActivityScreen from './activityScreen';
 import SettingsScreen from './settingsScreen';
-import HomeScreenTab from './homeScreen';
+import HomeScreenTab from './defaultScreen';
 import ProfileScreen from './profileScreen';
 import LocationScreen from './locationScreen';
 
@@ -27,16 +27,17 @@ function TabNavigation() {
                     iconName = focused ? 'ios-list-box' : 'ios-list';
                     }
 
-                    // You can return any component that you like here!
+                    
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 tabBarActiveTintColor: 'tomato',
                 tabBarInactiveTintColor: 'gray',
+                backBehavior: "history"
                 })}
             >
                 <Tab.Screen ontentContainerStyle={styles.container} name="Settings" component={SettingsScreen} />
                 <Tab.Screen ontentContainerStyle={styles.container} name="Profile" component={ProfileScreen} />
-                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreenTab} options={{unmountOnBlur: true}}/>
+                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreenTab}/>
                 <Tab.Screen ontentContainerStyle={styles.container} name="Activity" component={ActivityScreen} />
                 <Tab.Screen ontentContainerStyle={styles.container} name="Location" component={LocationScreen} />
             </Tab.Navigator>
