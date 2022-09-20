@@ -29,7 +29,6 @@ let texttodisplay = locktext ? 'Unlock' : 'Lock';
             <TouchableOpacity onPress={ () => {changeImage(); changeText();} }>
                 <Image style={styles.imageFormat} source={imagePath} />
             </TouchableOpacity>
-            
             <Text style={{textAlign:'center'}}>Tap Icon to {texttodisplay}</Text>
         </ScrollView>
     );

@@ -8,6 +8,7 @@ import SettingsScreen from './settingsScreen';
 import HomeScreenTab from './defaultScreen';
 import ProfileScreen from './profileScreen';
 import LocationScreen from './locationScreen';
+import MonitorScreen from './monitorScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,25 +22,34 @@ function TabNavigation() {
 
                     if (route.name === 'Profile') {
                     iconName = focused
-                        ? 'ios-information-circle'
-                        : 'ios-information-circle-outline';
-                    } else if (route.name === 'Settings') {
-                    iconName = focused ? 'ios-list-box' : 'ios-list';
+                        ? 'ios-person-circle'
+                        : 'ios-person-circle-outline';
+                    } else if (route.name === 'Home') {
+                        iconName = focused ? 'ios-home' : 'ios-home-outline';
+                    } else if (route.name === 'Activity')
+                    {
+                        iconName = focused ? 'ios-list-circle' : 'ios-list-circle-outline';
+                    } else if (route.name === 'Location')
+                    {
+                        iconName = focused ? 'ios-location' : 'ios-location-outline';
+                    } else if (route.name === 'LiveFeed')
+                    {
+                        iconName = focused ? 'ios-camera' : 'ios-camera-outline';
                     }
 
                     
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: 'tomato',
+                tabBarActiveTintColor: 'blue',
                 tabBarInactiveTintColor: 'gray',
                 backBehavior: "history"
                 })}
             >
-                <Tab.Screen ontentContainerStyle={styles.container} name="Settings" component={SettingsScreen} />
-                <Tab.Screen ontentContainerStyle={styles.container} name="Profile" component={ProfileScreen} />
-                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreenTab}/>
-                <Tab.Screen ontentContainerStyle={styles.container} name="Activity" component={ActivityScreen} />
-                <Tab.Screen ontentContainerStyle={styles.container} name="Location" component={LocationScreen} />
+                <Tab.Screen ontentContainerStyle={styles.container} name="LiveFeed" component={MonitorScreen} options={{headerShown: false}}/>
+                <Tab.Screen ontentContainerStyle={styles.container} name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+                <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreenTab} options={{headerShown: false}}/>
+                <Tab.Screen ontentContainerStyle={styles.container} name="Activity" component={ActivityScreen} options={{headerShown: false}}/>
+                <Tab.Screen ontentContainerStyle={styles.container} name="Location" component={LocationScreen} options={{headerShown: false}}/>
             </Tab.Navigator>
     );
 };

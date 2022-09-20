@@ -14,7 +14,6 @@ function HomeScreen({navigation}) {
             <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
                 <Text style={{color: 'white', alignSelf: 'center'}}>Log Out</Text>
             </Pressable>
-            <button>Settings</button>
 
             <TabNavigation/>
         </ScrollView>
@@ -24,6 +23,7 @@ function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         backgroundColor: '#D7D7D7',
     },
     logoutButton: {
