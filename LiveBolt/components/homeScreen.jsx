@@ -10,10 +10,15 @@ import TabNavigation from './tabNavigation';
 function HomeScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={{alignSelf: 'center'}}>Logged in as...</Text>
-            <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
-                <Text style={{color: 'white', alignSelf: 'center'}}>Log Out</Text>
-            </Pressable>
+            <div style={{ display: "flex", justifyContent: "space-between", backgroundColor: "lightblue" }}>
+                <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Settings')}>
+                    <Ionicons name="settings-outline" size={24} color={"black"}/>
+                </Pressable>
+                <Text style={{alignSelf: 'center'}}>Logged in as...</Text>
+                <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Login')}>
+                    <Ionicons name="log-out-outline" size={24} color={"black"}/>
+                </Pressable>
+            </div>
 
             <TabNavigation/>
         </ScrollView>
@@ -32,7 +37,8 @@ const styles = StyleSheet.create({
         height: 40,
         width: 100,
         justifyContent: 'center',
-        alignSelf: 'center',
+        alignSelf: 'flex-end',
+        flexDirection: 'row'
     },
 });
 

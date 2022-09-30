@@ -62,6 +62,18 @@ const App = () => {
           }}
         />
 
+        <Stack.Screen
+          name="Settings" 
+          component={SettingsScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: '#144C81',
+            },
+            headerTitleAlign: 'center',
+            headerTintColor: '#FFF',
+          }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
