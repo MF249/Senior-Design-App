@@ -1,10 +1,14 @@
 import React from 'react';
-import { Text, ScrollView, StyleSheet, Pressable } from 'react-native';
+import { Text, ScrollView, StyleSheet, Pressable, Image } from 'react-native';
+import info from '../images/icons8-info-48.png';
 
 function ProfileScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            
+            <Image style={styles.imageFormat} source={info}/>
+            <Text>John Smith</Text>
+            <Text>john_smith</Text>
+            <Text>johnsmith@email.com</Text>
         </ScrollView>
     );
 };
@@ -12,8 +16,13 @@ function ProfileScreen({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        alignItems: 'center',
         backgroundColor: '#D7D7D7',
+    },
+    imageFormat: {
+        width: 150,
+        height: 150,
+        display: 'flex',
+        justifyContent: 'space-between'
     },
     logoutButton: {
         backgroundColor: '#041847',
