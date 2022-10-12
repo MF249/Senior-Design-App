@@ -1,11 +1,29 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Pressable } from 'react-native';
+import { useLogin } from '../contexts/loginProvider';
 
-function HomeScreen({navigation}) {
+function HomeScreen() {
+    
+    const { userToken, setUserToken } = useLogin();
+
+    const doLogout = () => {
+        // setIsLoggedIn(false);
+        console.log(userToken);
+    };
+
+    const getValueFor = async (key) => {
+        let result = await SecureStore.getItemAsync(key);
+        if (result) {
+          console.log('Session token: ' + result);
+        } else {
+          console.log('Session token does not exist.');
+        }
+      }
+    
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text>Logged in as...</Text>
-            <Pressable style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
+            <Pressable style={styles.logoutButton} onPress={doLogout}>
                 <Text style={{color: 'white'}}>Log Out</Text>
             </Pressable>
         </ScrollView>

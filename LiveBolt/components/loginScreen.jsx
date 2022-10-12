@@ -1,15 +1,39 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TextInput, StyleSheet, Pressable } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
+import { useLogin } from '../contexts/loginProvider';
+import axios from "axios";
 
 function LoginScreen({navigation}) {
   
+  const { userToken, setUserToken, setIsLoading } = useLogin();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  function handleSubmit() {
-    console.log("Username: " + username + " Password: " + password);
-    navigation.navigate('Home');
+  const save = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
   }
+
+  const doLogin = () => {
+
+    try {
+      axios.post('https://livebolt-rest-api.herokuapp.com/api/login', {
+        username : username,
+        password : password
+      }).then((response) => {
+        
+        if(!response.data._id) {
+          console.log(response.data.message);
+          setMessage(response.data.message);
+        } else {
+          setUserToken(response.data.token);
+        }
+      });
+    } catch(e) {
+      setMessage(e);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -31,7 +55,8 @@ function LoginScreen({navigation}) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <Pressable style={styles.loginButton} onPress={handleSubmit}>
+      <Text style={{color: 'red'}}></Text>
+      <Pressable style={styles.loginButton} onPress={doLogin}>
         <Text style={{color: 'white'}}>Log in</Text>
       </Pressable>
       <Pressable style={{ paddingTop: 20 }} onPress={() => navigation.navigate('Password Reset')}>
