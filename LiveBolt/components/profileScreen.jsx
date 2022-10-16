@@ -18,11 +18,16 @@ function ProfileScreen({navigation}) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                userId: "633cd5813d6503bedad92a50"
+                id: "633cd5813d6503bedad92a50"
             })
         })
         .then((response) => response.json()).then((responseJson) => {
             console.log(responseJson);
+            setName(responseJson.name);
+            setEmail(responseJson.email);
+            setPhone(responseJson.phone);
+            setUsername(responseJson.username);
+            setPassword(responseJson.password);
         })
     }, [])
 
