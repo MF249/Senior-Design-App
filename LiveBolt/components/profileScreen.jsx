@@ -18,7 +18,7 @@ function ProfileScreen({navigation}) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: "633cd5813d6503bedad92a50"
+                id: "634426b4c42d3e52902e0ee0"
             })
         })
         .then((response) => response.json()).then((responseJson) => {
@@ -34,11 +34,10 @@ function ProfileScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image style={styles.imageFormat} source={info}/>
-            <Text>{name}</Text>
-            <Text>{phone}</Text>
-            <Text>{email}</Text>
-            <Text>{username}</Text>
-            <Text>{password}</Text>
+            <Text>Name: {name}</Text>
+            <Text>Phone Number: {phone}</Text>
+            <Text>Email Address: {email}</Text>
+            <Text>Username: {username}</Text>
         </ScrollView>
     );
 };
@@ -47,6 +46,8 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         backgroundColor: '#D7D7D7',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     imageFormat: {
         width: 150,
