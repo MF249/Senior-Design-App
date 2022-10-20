@@ -4,13 +4,13 @@ import LoadingScreen from "../components/loadingScreen";
 import { useLogin } from "../contexts/loginProvider";
 
 const MainNavigator = () => {
-    const { userToken, isLoading } = useLogin();
+    const { isLoggedIn, isLoading } = useLogin();
 
     if (isLoading) {
         return <LoadingScreen />;
     }
 
-    return userToken ? <HomeNavigator /> : <AuthNavigator />;
+    return isLoggedIn ? <HomeNavigator /> : <AuthNavigator />;
 };
 
 export default MainNavigator;

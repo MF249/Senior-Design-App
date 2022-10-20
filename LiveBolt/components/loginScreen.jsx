@@ -6,7 +6,7 @@ import axios from "axios";
 
 function LoginScreen({navigation}) {
   
-  const { userToken, setUserToken, setIsLoading } = useLogin();
+  const { setIsLoggedIn, setIsLoading } = useLogin();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -23,11 +23,11 @@ function LoginScreen({navigation}) {
         password : password
       }).then((response) => {
         
-        if(!response.data._id) {
-          console.log(response.data.message);
+        if(!response.data.token) {
           setMessage(response.data.message);
         } else {
-          setUserToken(response.data.token);
+          save("TOKEN", response.data.token);
+          setIsLoggedIn(true);
         }
       });
     } catch(e) {
@@ -55,7 +55,7 @@ function LoginScreen({navigation}) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <Text style={{color: 'red'}}></Text>
+      <Text style={{color: 'red', paddingBottom: 15}}> {message} </Text>
       <Pressable style={styles.loginButton} onPress={doLogin}>
         <Text style={{color: 'white'}}>Log in</Text>
       </Pressable>
