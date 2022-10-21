@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import { Text, ScrollView, StyleSheet, Pressable, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -21,12 +21,51 @@ let [locktext, setlocktext] = React.useState(true);
 let changeText = () => setlocktext(previousState => !previousState);
 let texttodisplay = locktext ? 'Unlock' : 'Lock';
 
+const [currentDate, setCurrentDate] = useState('');
+const [currentTime, setCurrentTime] = useState('');
+
+useEffect(() => {
+var date = new Date().getDate(); //Current Date
+var month = new Date().getMonth() + 1; //Current Month
+var year = new Date().getFullYear(); //Current Year
+var hours = new Date().getHours(); //Current Hours
+var min = new Date().getMinutes(); //Current Minutes
+var sec = new Date().getSeconds(); //Current Seconds
+setCurrentDate(
+    date + '/' + month + '/' + year 
+);
+setCurrentTime(
+    hours + ':' + min + ':' + sec
+)
+}, []);
+
+const doActivity = () => {
+
+    try {
+      axios.post('https://livebolt-rest-api.herokuapp.com/api/addActivity', {
+        time : currentTime,
+        date : currentDate,
+        status: locktext
+      }).then((response) => {
+        console.log('Sent');
+      });
+    } catch(e) {
+      setMessage(e);
+    }
+  };
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <Text>
+                Current Date Time
+            </Text>
+            <Text>
+                {currentDate}
+            </Text>
             <TouchableOpacity>
                 <Image style={styles.infoImageFormat} source={info}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={ () => {changeImage(); changeText();} }>
+            <TouchableOpacity onPress={ () => {changeImage(); changeText(); doActivity()} }>
                 <Image style={styles.imageFormat} source={imagePath} />
             </TouchableOpacity>
             <Text style={{textAlign:'center'}}>Tap Icon to {texttodisplay}</Text>
