@@ -26,7 +26,7 @@ function HomeScreen() {
     }
 
     const doLogout = () => {
-        save("TOKEN", null);
+        save("TOKEN", "");
         setIsLoggedIn(false);
     };
     
