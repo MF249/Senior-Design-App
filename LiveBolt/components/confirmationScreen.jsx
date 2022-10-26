@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { View, Text, ScrollView, TextInput, StyleSheet, Pressable } from 'react-native';
 
-function ConfirmationScreen() {
+function ConfirmationScreen({navigation}) {
   
   const [message, setMessage] = useState("");
   const [pin, setPin] = useState("");
 
-  useEffect(() => {    
-    SecureStore.getItemAsync("TOKEN").then((result) => {
-      if (!result) {
-        setMessage("Screen token lost, returning to login screen.");
-      }
-    })
-  });
-
+  const save = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  }
   
   const delay = ms => new Promise(
     resolve => setTimeout(resolve, ms)
@@ -23,23 +18,23 @@ function ConfirmationScreen() {
 
   const doResend = async () => {
 
-    let token = await SecureStore.getItemAsync("TOKEN");
-    if (!token) { 
-      setMessage("This page is no longer valid.");
-    } else {
-      let id = await SecureStore.getItemAsync("ID");
-      try {
-        axios.post('https://livebolt-rest-api.herokuapp.com/api/sendVerifyEmail', {
-          userId : id
-        }).then((response) => {
-          setMessage(response.data.message);
-          delay(2000);
-          navigation.navigate('Login');
+    SecureStore.getItemAsync("TOKEN").then((token) => {
+      if (!token) { 
+        setMessage("This page is no longer valid.");
+      } else {
+        SecureStore.getItemAsync("ID").then((id) => {
+          try {
+            axios.post('https://livebolt-rest-api.herokuapp.com/api/sendVerifyEmail', {
+              userId : id
+            }).then((response) => {
+              setMessage(response.data.message);
+            });
+          } catch(e) {
+            setMessage(e);
+          }
         });
-      } catch(e) {
-        setMessage(e);
       }
-    }
+    });
   };
 
   const doVerify = async () => {
@@ -54,6 +49,10 @@ function ConfirmationScreen() {
         try {
           axios.post('https://livebolt-rest-api.herokuapp.com/api/accountVerify', obj).then((response) => {
             setMessage(response.data.message);
+            save("ID", "");
+            save("TOKEN", "");
+            delay(5000);
+            navigation.navigate('Login');
           });
         } catch(e) {
           setMessage(e);

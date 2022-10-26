@@ -42,7 +42,7 @@ const AuthNavigator = () => {
                     headerStyle: { backgroundColor: '#144C81' },
                     headerTitleAlign: 'center',
                     headerTintColor: '#FFF',
-                    headerLeft: ()=> null,
+                    headerLeft: null,
                 }}
             />
         </Stack.Navigator>
