@@ -10,7 +10,7 @@ import TabNavigation from './tabNavigation';
 function HomeScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <View style={{ display: "flex", justifyContent: "space-between", backgroundColor: "lightblue" }}>
+            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", backgroundColor: "lightblue" }}>
                 <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Settings')}>
                     <Ionicons name="settings-outline" size={24} color={"black"}/>
                 </Pressable>
