@@ -1,11 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { Text, ScrollView, StyleSheet, Pressable, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ActivityScreen from './activityScreen';
-import SettingsScreen from './settingsScreen';
-import TabNavigation from './tabNavigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import locked from '../images/icons8-lock-150.png';
 import unlocked from '../images/icons8-padlock-150.png';
