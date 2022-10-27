@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
 import { Text, ScrollView, StyleSheet, Pressable, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActivityScreen from './activityScreen';
 import SettingsScreen from './settingsScreen';
 import TabNavigation from './tabNavigation';
+import { useLogin } from '../contexts/loginProvider';
 
 function HomeScreen() {
     
@@ -40,7 +42,7 @@ function HomeScreen() {
                 <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Settings')}>
                     <Ionicons name="settings-outline" size={24} color={"black"}/>
                 </Pressable>
-                <Text style={{alignSelf: 'center'}}>Logged in as...</Text>
+                <Text style={{alignSelf: 'center'}}>{message}</Text>
                 <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Login')}>
                     <Ionicons name="log-out-outline" size={24} color={"black"}/>
                 </Pressable>
