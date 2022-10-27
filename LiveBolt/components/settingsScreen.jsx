@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Text, ScrollView, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
+import { Text, ScrollView, StyleSheet, Pressable, TouchableOpacity, View } from 'react-native';
 import { Button, SearchBar } from 'react-native-elements';
 import SettingsSearchBar from './settingsSearchBar';
 
@@ -11,7 +11,7 @@ function SettingsScreen({navigation}) {
             <SearchBar
                 placeholder="Type Here..."
             />
-            <div>
+            <View>
                 <TouchableOpacity style={{backgroundColor:"gray", padding:10, margin:10}}>
                     <Text style={{color: 'white', alignSelf: 'center'}}>Friends</Text>
                 </TouchableOpacity>
@@ -30,7 +30,7 @@ function SettingsScreen({navigation}) {
                 <TouchableOpacity style={{backgroundColor:"gray", padding:10, margin:10}}>
                     <Text style={{color: 'white', alignSelf: 'center'}}>About</Text>
                 </TouchableOpacity>
-            </div>
+            </View>
         </ScrollView>
         );  
 };
