@@ -7,7 +7,33 @@ import ActivityScreen from './activityScreen';
 import SettingsScreen from './settingsScreen';
 import TabNavigation from './tabNavigation';
 
-function HomeScreen({navigation}) {
+function HomeScreen() {
+    
+    const { setIsLoggedIn, setIsLoading } = useLogin();
+    const [ message, setMessage ] = useState("");
+    
+    useEffect(() => {    
+        getToken("TOKEN");
+    });
+    
+    const save = async (key, value) => {
+        await SecureStore.setItemAsync(key, value);
+    }
+
+    const getToken = async (key) => {
+        let result = await SecureStore.getItemAsync(key);
+        if (result) {
+          setMessage('Session token: ' + result);
+        } else {
+          setMessage('Session token does not exist.');
+        }
+    }
+
+    const doLogout = () => {
+        save("TOKEN", "");
+        setIsLoggedIn(false);
+    };
+    
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", backgroundColor: "lightblue" }}>
