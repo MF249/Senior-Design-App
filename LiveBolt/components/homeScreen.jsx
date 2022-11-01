@@ -12,23 +12,9 @@ import { useLogin } from '../contexts/loginProvider';
 function HomeScreen() {
     
     const { setIsLoggedIn, setIsLoading } = useLogin();
-    const [ message, setMessage ] = useState("");
-    
-    useEffect(() => {    
-        getToken("TOKEN");
-    });
     
     const save = async (key, value) => {
         await SecureStore.setItemAsync(key, value);
-    }
-
-    const getToken = async (key) => {
-        let result = await SecureStore.getItemAsync(key);
-        if (result) {
-          setMessage('Session token: ' + result);
-        } else {
-          setMessage('Session token does not exist.');
-        }
     }
 
     const doLogout = () => {
@@ -38,12 +24,11 @@ function HomeScreen() {
     
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", backgroundColor: "lightblue" }}>
+            <View style={styles.topBar}>
                 <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Settings')}>
                     <Ionicons name="settings-outline" size={24} color={"black"}/>
                 </Pressable>
-                <Text style={{alignSelf: 'center'}}>{message}</Text>
-                <Pressable style={{paddingHorizontal:5}} onPress={() => navigation.navigate('Login')}>
+                <Pressable style={{paddingHorizontal:5}} onPress={doLogout}>
                     <Ionicons name="log-out-outline" size={24} color={"black"}/>
                 </Pressable>
             </View>
@@ -58,6 +43,13 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         backgroundColor: '#D7D7D7',
+    },
+    topBar: {
+        display: "flex", 
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        backgroundColor: "lightblue",
+        paddingTop: 70,
     },
     logoutButton: {
         backgroundColor: '#041847',

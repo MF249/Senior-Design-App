@@ -1,43 +1,49 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
 import { Text, ScrollView, StyleSheet, Pressable, Image } from 'react-native';
 import info from '../images/icons8-info-48.png';
+import axios from "axios";
 
-function ProfileScreen({navigation}) {
-    const [name, setName] = useState([]);
-    const [phone, setPhone] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [username, setUsername] = useState([]);
-    const [password, setPassword] = useState([]);
+function ProfileScreen() {
+    
+    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
-        fetch("https://livebolt-rest-api.herokuapp.com/api/profileUser", {
-            method: "post",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: "634426b4c42d3e52902e0ee0"
-            })
-        })
-        .then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson);
-            setName(responseJson.name);
-            setEmail(responseJson.email);
-            setPhone(responseJson.phone);
-            setUsername(responseJson.username);
-            setPassword(responseJson.password);
-        })
-    }, [])
+        getProfile();
+    }, []);
+
+    const getProfile = () => {
+
+        try {
+            SecureStore.getItemAsync("ID").then((userId) => {
+                if (userId) {
+                    axios.post('https://livebolt-rest-api.herokuapp.com/api/profileUser', {
+                        id : userId
+                    }).then((response) => {
+                        setUsername(response.data.username);
+                        setName(response.data.name);
+                        setEmail(response.data.email);
+                        setPhone(response.data.phone);
+                    });
+                } else { setMessage("Error: User ID not found") }
+            });
+        } catch(e) {
+          setMessage(e);
+        }
+    };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Image style={styles.imageFormat} source={info}/>
+            <Text>Username: {username}</Text>
             <Text>Name: {name}</Text>
             <Text>Phone Number: {phone}</Text>
             <Text>Email Address: {email}</Text>
-            <Text>Username: {username}</Text>
         </ScrollView>
     );
 };
