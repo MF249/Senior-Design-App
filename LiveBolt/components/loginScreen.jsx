@@ -26,12 +26,14 @@ function LoginScreen({navigation}) {
         if(!response.data.token) {
           setMessage(response.data.message);
         } else if(response.data.verify == -1) {
-          save("TOKEN", response.data.token);
-          save("ID", response.data.id);
+          save("TOKEN", response.data.token).then(() => {
+            save("ID", response.data.id);
+          });
           navigation.navigate('Email Confirmation');
         } else {
-          save("TOKEN", response.data.token);
-          save("ID", response.data.id);
+          save("TOKEN", response.data.token).then(() => {
+            save("ID", response.data.id);
+          });
           setIsLoggedIn(true);
         }
       });
