@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Text, ScrollView, StyleSheet, Pressable, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ActivityScreen from './activityScreen';
-import SettingsScreen from './settingsScreen';
 import TabNavigation from './tabNavigation';
 import { useLogin } from '../contexts/loginProvider';
 
@@ -49,7 +45,8 @@ const styles = StyleSheet.create({
         flexDirection: "row", 
         justifyContent: "space-between", 
         backgroundColor: "lightblue",
-        paddingTop: 70,
+        paddingTop: 45,
+        paddingBottom: 5,
     },
     logoutButton: {
         backgroundColor: '#041847',

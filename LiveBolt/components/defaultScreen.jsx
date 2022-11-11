@@ -7,7 +7,7 @@ import unlocked from '../images/icons8-padlock-150.png';
 import info from '../images/icons8-info-48.png';
 import axios from "axios";
 
-function DefaultScreen({navigation}) {
+function DefaultScreen() {
     
     const [lock, setlock] = useState(true);
     const [locktext, setlocktext] = useState(true);
