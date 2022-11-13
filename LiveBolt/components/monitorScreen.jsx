@@ -1,10 +1,17 @@
 import React from 'react';
-import { Text, ScrollView, StyleSheet, Pressable } from 'react-native';
+import { Text, ScrollView, StyleSheet, Pressable, Image, View} from 'react-native';
+import WebView from 'react-native-webview';
+import imgh from '../images/icons8-info-48.png'
 
 function MonitorScreen({navigation}) {
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            
+            <View>
+            <Text>                                                                                                 </Text>
+                <WebView
+                    source={{ uri: 'http://192.168.1.180:8000/' }}/>
+            <Text>                                                                                                 </Text>
+            </View>
         </ScrollView>
     );
 };
