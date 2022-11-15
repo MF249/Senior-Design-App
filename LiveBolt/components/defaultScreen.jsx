@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Image } from 'react-native';
-import { Text, ScrollView, StyleSheet, Pressable, Modal, View } from 'react-native';
+import * as LocalAuthentication from 'expo-local-authentication';
+import { Text, ScrollView, StyleSheet, Pressable, Modal, View, Switch } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import locked from '../images/icons8-lock-150.png';
 import unlocked from '../images/icons8-padlock-150.png';
@@ -12,13 +13,47 @@ function DefaultScreen() {
     const [lock, setlock] = useState(true);
     const [locktext, setlocktext] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
-    const [message, setMessage] = useState("Testing...");
+    const [message, setMessage] = useState("");
+
+    const [isEnabledOne, setIsEnabledOne] = useState(false);
+    const [isEnabledTwo, setIsEnabledTwo] = useState(false);
+    const toggleSwitchTwo = () => setIsEnabledTwo(previousState => !previousState);
 
     let imagePath = lock ? locked : unlocked;
     let texttodisplay = locktext ? 'Unlock' : 'Lock';
 
-    const interactLock = () => {
+    const biometricsCheck = async () => {
+        if (isEnabledOne) {
+            setIsEnabledOne(false);
+        } else {
+            const compatible = await LocalAuthentication.hasHardwareAsync();
+            if (!compatible) {
+                alert('This device is not compatible for biometric authentication');
+                return;
+            }
+        
+            const enrolled = await LocalAuthentication.isEnrolledAsync()
+            if (!enrolled) {
+                alert('This device does not have biometric authentication enabled');
+                return;
+            }
+
+            setIsEnabledOne(true);
+            alert('Biometics check enabled');
+        }
+    }
+
+    const interactLock = async () => {
         setModalVisible(!modalVisible);
+
+        if (isEnabledOne) {
+            const isAuthenticated = await LocalAuthentication.authenticateAsync();
+            if (!isAuthenticated) { 
+                alert('Biometrics check failed');
+                return; 
+            }
+        }
+
         setlock(previousState => !previousState);
         setlocktext(previousState => !previousState);
         
@@ -50,7 +85,29 @@ function DefaultScreen() {
                 <Image style={styles.imageFormat} source={imagePath} />
             </TouchableOpacity>
             
-            <Text style={{textAlign:'center'}}>Tap Icon to {texttodisplay}</Text>
+            <Text style={{ textAlign:'center', paddingBottom: 50 }}>Tap Icon to {texttodisplay}</Text>
+            
+            <View style={styles.switchView}>
+                <Text style={{ paddingRight: 15 }}>Enable Biometrics</Text>
+                <Switch
+                    trackColor={{ false: "#767577", true: "#3ee14d" }}
+                    thumbColor={"#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={biometricsCheck}
+                    value={isEnabledOne}
+                />
+            </View>
+
+            <View style={styles.switchView}>
+                <Text style={{ paddingRight: 15 }}>Enable Text Messages</Text>
+                <Switch
+                    trackColor={{ false: "#767577", true: "#3ee14d" }}
+                    thumbColor={"#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitchTwo}
+                    value={isEnabledTwo}
+                />
+            </View>
 
             <Modal
                 animationType="slide"
@@ -87,7 +144,7 @@ function DefaultScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#D7D7D7',
     },
     logoutButton: {
@@ -149,6 +206,13 @@ const styles = StyleSheet.create({
     modalText: {
         marginBottom: 15,
         textAlign: "center"
+    },
+    switchView: {
+        flex: 2,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingBottom: 50,
     }
 });
 

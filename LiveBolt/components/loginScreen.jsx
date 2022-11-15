@@ -66,7 +66,7 @@ function LoginScreen({navigation}) {
       <Pressable style={styles.loginButton} onPress={doLogin}>
         <Text style={{color: 'white'}}>Log in</Text>
       </Pressable>
-      <Pressable style={{ paddingTop: 20 }} onPress={() => navigation.navigate('Password Reset')}>
+      <Pressable style={{ paddingTop: 20 }} onPress={() => navigation.navigate('Reset Request')}>
         <Text style={{color: 'white'}}>Forgot your password?</Text>
       </Pressable>
       <Pressable style={{ position:'absolute', bottom: 0, paddingBottom: 50 }} onPress={() => navigation.navigate('Account Creation')}>

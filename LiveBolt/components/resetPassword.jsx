@@ -3,10 +3,11 @@ import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 import { View, Text, ScrollView, TextInput, StyleSheet, Pressable } from 'react-native';
 
-function ForgotPasswordScreen({navigation}) {
+function ResetPasswordScreen({navigation}) {
   
   const [message, setMessage] = useState("");
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const save = async (key, value) => {
     await SecureStore.setItemAsync(key, value);
@@ -14,46 +15,49 @@ function ForgotPasswordScreen({navigation}) {
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-  const doSend = async () => {
-    try {
-      axios.post('https://livebolt-rest-api.herokuapp.com/api/sendResetEmail', {
-        email : email
-      }).then((response) => {
-        if(!response.data.userId) {
-          setMessage(response.data.message);
-        } else {
-          save("ID", response.data.userId).then(() => {
-            setMessage(response.data.message);
-            delay(3000);
-            navigation.navigate("Reset Confirm");
+  const doChange = async () => {
+    if (password !== confirmPassword) {
+        setMessage("Passwords must match!");
+    } else {
+      SecureStore.getItemAsync("ID").then((userId) => {
+        try {
+          axios.post('https://livebolt-rest-api.herokuapp.com/api/sendResetEmail', {
+            password : password,
+            id : userId
+          }).then((response) => {
+            if(!response.data.confirm) {
+              setMessage(response.data.message);
+            } else {
+              save("ID", "");
+              setMessage(response.data.message);
+              delay(3000);
+              navigation.navigate("Login");
+            }
           });
-        }
+        } catch(e) { setMessage(e) }
       });
-    } catch(e) {
-      setMessage(e);
     }
   };
   
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View>
-        <Text style={styles.explainationText}>
-          If you have forgotten your password, you can enter{"\n"}
-          the email linked with your account below.{"\n"}{"\n"}
-          An email will be sent to that address containing a 
-          verification number to change your password.
-        </Text>
-      </View>
-      <View style={styles.inputView}>
+      <View style={{paddingTop: 50, paddingBottom: 10}}>
         <TextInput
           style={styles.inputField}
-          placeholder="Email Address"
-          onChangeText={(email) => setEmail(email)}
+          placeholder="New Password"
+          onChangeText={(password) => setPassword(password)}
+        />
+      </View>
+      <View style={{paddingTop: 20, paddingBottom: 10}}>
+        <TextInput
+          style={styles.inputField}
+          placeholder="Confirm Password"
+          onChangeText={(confirm) => setConfirmPassword(confirm)}
         />
       </View>
       <Text style={{color: 'red', paddingBottom: 15}}> {message} </Text>
-      <Pressable style={styles.confirmButton} onPress={doSend}>
-        <Text style={{color: 'white'}}>Send</Text>
+      <Pressable style={styles.confirmButton} onPress={doChange}>
+        <Text style={{color: 'white'}}>Change</Text>
       </Pressable>
     </ScrollView>
   );
@@ -71,10 +75,6 @@ const styles = StyleSheet.create({
         paddingTop: 150,
         paddingBottom: 10,
         color: '#041847',
-    },
-    inputView: {
-        paddingVertical: 10,
-        paddingBottom: 20,
     },
     inputField: {
         height: 40,
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ForgotPasswordScreen;
+export default ResetPasswordScreen;
