@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import locked from '../images/icons8-lock-150.png';
 import unlocked from '../images/icons8-padlock-150.png';
 import info from '../images/icons8-info-48.png';
+import * as SecureStore from 'expo-secure-store';
 import axios from "axios";
 
 function DefaultScreen() {
@@ -39,41 +40,40 @@ function DefaultScreen() {
             }
 
             setIsEnabledOne(true);
-            alert('Biometics check enabled');
+            alert('Biometics check is now enabled');
         }
     }
 
     const interactLock = async () => {
         setModalVisible(!modalVisible);
+        let lockStatus = lock ? '-1' : '1';
+        let stamp = (new Date()).toLocaleString();
 
         if (isEnabledOne) {
             const isAuthenticated = await LocalAuthentication.authenticateAsync();
             if (!isAuthenticated) { 
                 alert('Biometrics check failed');
-                return; 
+                return;
             }
         }
 
+        SecureStore.getItemAsync("ID").then((userId) => {
+            try {
+                axios.post('https://livebolt-rest-api.herokuapp.com/api/addActivity', {
+                    timestamp : stamp,
+                    text : true,
+                    status : lockStatus,
+                    id : userId
+                }).then((response) => {
+                    setMessage(response.data.message);
+                }).catch(error => console.log(error));
+            } catch(e) {
+                setMessage(e);
+            }
+        });
+
         setlock(previousState => !previousState);
         setlocktext(previousState => !previousState);
-        
-        let lockStatus = lock ? '-1' : '1';
-        let stamp = (new Date()).toLocaleString();
-
-        try {
-            axios.post('https://livebolt-rest-api.herokuapp.com/api/addActivity', {
-                timestamp : stamp,
-                status : lockStatus
-            }).then((response) => {
-                if (response.data.acknowledged) {
-                    setMessage("Success!");
-                } else {
-                    setMessage(response.data.message);
-                }
-            }).catch(error => console.log(error));
-        } catch(e) {
-            setMessage(e);
-        }
     }
 
     return (
