@@ -61,16 +61,28 @@ function DefaultScreen() {
             try {
                 axios.post('https://livebolt-rest-api.herokuapp.com/api/addActivity', {
                     timestamp : stamp,
-                    text : true,
+                    text : isEnabledTwo,
                     status : lockStatus,
                     id : userId
                 }).then((response) => {
+                    console.log(response.data.message);
                     setMessage(response.data.message);
                 }).catch(error => console.log(error));
             } catch(e) {
                 setMessage(e);
             }
         });
+
+        try {
+            axios.post('https://livebolt-rest-api.herokuapp.com/mqtt/testLock', {
+                status : lockStatus
+            }).then((response) => {
+                console.log(response.data.message);
+                setMessage(response.data.message);
+            }).catch(error => console.log(error));
+        } catch(e) {
+            setMessage(e);
+        }
 
         setlock(previousState => !previousState);
         setlocktext(previousState => !previousState);

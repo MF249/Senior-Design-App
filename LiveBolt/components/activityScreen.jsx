@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
         width: 100,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 15,
     },
     datePicker: {
         justifyContent: 'center',
