@@ -12,11 +12,11 @@ function ActivityScreen() {
 
     const pushActivity = (newElement, index) => {
         
-        if (newElement.toggle) {
+        if (newElement.toggle == true) {
             setListActivities(oldDates => [...oldDates, 
                 <LogEvent 
                     key={index}
-                    toggle={1}
+                    toggle={true}
                     time={newElement.time}
                 />
             ]);
@@ -29,20 +29,27 @@ function ActivityScreen() {
             ]);
         }
     }
+
+    const pushSpace = (index) => {
+        setListActivities(oldDates => [...oldDates, 
+            <View style={styles.logSpace} key={"space " + index}/>
+        ]);
+    }
     
     const getActivity = () => {
         
         setListActivities([]);
         setMessage("");
+
         let activityDate = date.toLocaleString().slice(0, 10);
         try {
             axios.post('https://livebolt-rest-api.herokuapp.com/api/getActivity', {
                 date : activityDate
             }).then((response) => {
-                // console.log(response.data);
                 if (response.data.lockTime) {
                     for (let i = 0; i < response.data.lockTime.length; i++) {
                         pushActivity(response.data.lockTime[i], i);
+                        pushSpace(i);
                     }
                 } else {
                     setMessage(response.data.message);
@@ -69,7 +76,7 @@ function ActivityScreen() {
             <Text style={{color: 'red', paddingBottom: 15}}> {message} </Text>
             <Text>{listActivities}</Text>
             <Pressable style={styles.loginButton} onPress={getActivity}>
-                <Text style={{color: 'white'}}>Test API</Text>
+                <Text style={{color: 'white'}}>Search Log</Text>
             </Pressable>
         </ScrollView>
     );
@@ -88,11 +95,16 @@ const styles = StyleSheet.create({
         width: 100,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom: 15,
     },
     datePicker: {
         justifyContent: 'center',
         width: 85,
         height: 100,
+    },
+    logSpace : {
+        height: 15,
+        width: 320,
     },
 });
 

@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
     },
     inputField: {
-        height: 40,
+        height: 50,
         width: 280,
         backgroundColor: 'white',
         color: 'gray',
