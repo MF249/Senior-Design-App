@@ -20,13 +20,12 @@ function ResetConfirmation({navigation}) {
         SecureStore.getItemAsync("ID").then((id) => {
             obj.id = id;
             try {
-                axios.post('https://livebolt-rest-api.herokuapp.com/api/accountVerify', obj)
+                axios.post('https://livebolt-rest-api.herokuapp.com/api/resetVerify', obj)
                 .then((response) => {
-                    if (response.data.message) { setMessage(response.data.message) }
-                    
-                    if (response.data.match) {
-                        save("ID", "");
+                    if (response.data.match) { 
                         navigation.navigate('Password Change');
+                    } else {
+                        setMessage(response.data.message);
                     }
                 });
             } catch(e) { setMessage(e) }

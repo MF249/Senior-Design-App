@@ -6,7 +6,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ActivityScreen from './activityScreen';
 import HomeScreenTab from './defaultScreen';
 import ProfileScreen from './profileScreen';
-import LocationScreen from './locationScreen';
 import MonitorScreen from './monitorScreen';
 
 const Tab = createBottomTabNavigator();
@@ -28,9 +27,6 @@ function TabNavigation() {
                     } else if (route.name === 'Activity')
                     {
                         iconName = focused ? 'ios-list-circle' : 'ios-list-circle-outline';
-                    } else if (route.name === 'Location')
-                    {
-                        iconName = focused ? 'ios-location' : 'ios-location-outline';
                     } else if (route.name === 'LiveFeed')
                     {
                         iconName = focused ? 'ios-camera' : 'ios-camera-outline';
@@ -48,7 +44,6 @@ function TabNavigation() {
                 <Tab.Screen ontentContainerStyle={styles.container} name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
                 <Tab.Screen ontentContainerStyle={styles.container} name="Home" component={HomeScreenTab} options={{headerShown: false}}/>
                 <Tab.Screen ontentContainerStyle={styles.container} name="Activity" component={ActivityScreen} options={{headerShown: false}}/>
-                <Tab.Screen ontentContainerStyle={styles.container} name="Location" component={LocationScreen} options={{headerShown: false}}/>
             </Tab.Navigator>
     );
 };

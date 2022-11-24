@@ -21,7 +21,7 @@ function ResetPasswordScreen({navigation}) {
     } else {
       SecureStore.getItemAsync("ID").then((userId) => {
         try {
-          axios.post('https://livebolt-rest-api.herokuapp.com/api/sendResetEmail', {
+          axios.post('https://livebolt-rest-api.herokuapp.com/api/changePassword', {
             password : password,
             id : userId
           }).then((response) => {
